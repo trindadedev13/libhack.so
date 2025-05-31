@@ -4,8 +4,8 @@
 #define LOG_TAG "c2bsh"
 #define LOGE(...) printf(__VA_ARGS__)
 
-#ifndef JNI_UI_MAIN_FUNC_SIGN
-#define JNI_UI_MAIN_FUNC_SIGN Java_com_minimine_Native_showWindow
+#ifndef JNI_MAIN_FUNC_SIGN
+#define JNI_MAIN_FUNC_SIGN Java_com_minimine_Native_showWindow
 #endif
 
 typedef struct Window Window;
@@ -26,9 +26,9 @@ struct View {
   jmethodID constructor;
   View* parent;
 };
-
 // View List data
-// All views are stored here
+
+
 struct ViewList {
   View** array;
   int count;    // the current views amount
@@ -49,7 +49,7 @@ struct Hack {
   jobject context; // android activity context, needed for views constructor
 };
 
-static Hack* hack = {};
+static Hack* hack = {0};
 
 jint JNI_OnLoad(JavaVM* vm, void* reserved) {
   hack = (Hack*)malloc(sizeof(Hack));
@@ -229,7 +229,7 @@ static void Window_ViewList_Draw() {
   }
 }
 
-JNIEXPORT void JNICALL JNI_UI_MAIN_FUNC_SIGN(JNIEnv* env,
+JNIEXPORT void JNICALL JNI_MAIN_FUNC_SIGN(JNIEnv* env,
                                              jobject thiz,
                                              jobject context) {
   //////////////////////// GET NEEDED CLASSES ////////////////////////
